@@ -1,0 +1,39 @@
+.hbleft {
+  animation: moveLeft 2s ease-out forwards;
+  z-index: 100;
+}
+.hbcenter {
+  animation: moveCenter 2s ease-out forwards;
+  z-index: 200;
+}
+.hbright {
+  animation: moveRight 2s ease-out forwards;
+  z-index: 300;
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0) scale(1);
+  }
+  to {
+    transform: translateX(-68vw) scale(0.8);
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(-68vw) scale(0.8);
+  }
+  to {
+    transform: translateX(68vw) scale(0.8);
+  }
+}
+
+@keyframes moveCenter {
+  from {
+    transform: translateX(68vw) scale(0.8);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
+}
