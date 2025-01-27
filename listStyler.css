@@ -1,0 +1,52 @@
+.recepiinstructionlist li {
+  /* background-color: #b7b7b7; */
+  /* border: 3px solid red; */
+}
+.recepiinstructionlist li::marker {
+  /* color: blue; */
+  /* font-weight: bold; */
+  /* font-size: 40px; */
+  /* aspect-ratio: 1; */
+}
+.ingredentswrapper ul {
+  margin-bottom: 0px;
+}
+
+.recepiinstructionlist ol {
+  list-style: none; /* Remove default numbers */
+  counter-reset: my-counter; /* Initialize counter */
+}
+
+.recepiinstructionlist ol li {
+  counter-increment: my-counter; /* Increment counter */
+  /* background-color: lightgreen;  */
+  padding: 20px;
+  margin-bottom: 5px; /* Optional: Add spacing between items */
+  /* border: #868686 1px solid; */
+  padding-left: 87px;
+  position: relative;
+  min-height: 60px;
+  box-shadow: 0px 0px 5px #f3e3e3;
+  border: 1px solid #f3e3e3;
+  border-radius: 20px;
+}
+
+.recepiinstructionlist ol li::before {
+  /* content: counter(my-counter) ". ";  */
+  content: counter(my-counter); /* Display the custom counter */
+  color: white; /* Change the color of the number */
+  background-color: #df2e39; /* Background color for the number */
+  /* padding: 13px 18px; */
+  /* line-height: 44px; */
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px; /* Optional: Rounded corners for the number */
+  font-size: 40px;
+  position: absolute;
+  top: 13px;
+  left: 13px;
+}
