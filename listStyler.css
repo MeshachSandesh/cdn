@@ -15,6 +15,9 @@
 .recepiinstructionlist ol {
   list-style: none; /* Remove default numbers */
   counter-reset: my-counter; /* Initialize counter */
+  display: grid;
+  grid-auto-rows: 1fr;
+  padding: 0px;
 }
 
 .recepiinstructionlist ol li {
@@ -29,13 +32,14 @@
   box-shadow: 0px 0px 5px #f3e3e3;
   border: 1px solid #f3e3e3;
   border-radius: 20px;
+  background-color: rgba(184, 140, 113, 0.12);
 }
 
 .recepiinstructionlist ol li::before {
   /* content: counter(my-counter) ". ";  */
   content: counter(my-counter); /* Display the custom counter */
   color: white; /* Change the color of the number */
-  background-color: #df2e39; /* Background color for the number */
+  background-color: #df2e39;
   /* padding: 13px 18px; */
   /* line-height: 44px; */
   width: 60px;
