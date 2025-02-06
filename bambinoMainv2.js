@@ -114,7 +114,7 @@ class DraggableSlider {
 const swapRotate = ({ listItems }) => {
   /** home banner 
     
-    -  This will animate 3 banners in a loop
+    -  This will animate any banners in a loop
       
     - caller
       const listItems = document.querySelectorAll("#swipperWrapper .homeswipperslide");
@@ -129,7 +129,6 @@ const swapRotate = ({ listItems }) => {
   });
 
   const arrayLength = listItems.length;
-  // const arrayLength = 3;
 
   let runningNo = 0;
 
