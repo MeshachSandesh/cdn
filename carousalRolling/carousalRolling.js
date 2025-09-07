@@ -98,23 +98,28 @@ const carouselRolling = ({
 
   /** drawing functions */
   const drawCards = (cards, rearrangedPos) => {
+    // Find the selected card (opacity 1)
+    const selectedIdx = rearrangedPos.findIndex(
+      (pos) =>
+        pos &&
+        pos.scale === Math.max(...rearrangedPos.map((p) => (p ? p.scale : 0)))
+    );
     cards.forEach((card, idx) => {
       if (rearrangedPos[idx]) {
         const { startPos, scale, width, height, zindex, positionTop } =
           rearrangedPos[idx];
-
-        // Adjust so card is centered at startPos instead of left-aligned
         const centeredLeft = startPos - width / 2;
-
         card.style.position = "absolute";
         card.style.left = `${centeredLeft}px`;
         card.style.transform = `scale(${scale})`;
-        card.style.width = `${width}px`;
-        card.style.height = `${height}px`;
+        card.style.scale = scale;
         card.style.zIndex = zindex;
-        card.style.top = `${positionTop}px`;
-
-        card.textContent = `Center: ${startPos.toFixed(2)}, index: ${idx}`;
+        // Opacity: selected card = 1, each left/right reduces by 0.2, min 0.2
+        const dist = Math.abs(idx - selectedIdx);
+        let opacity = 1 - dist * 0.2;
+        if (opacity < 0.2) opacity = 0.2;
+        card.style.opacity = opacity;
+        // card.textContent = `Center: ${startPos.toFixed(2)}, index: ${idx}`;
       } else {
         card.style.display = "none";
       }
@@ -123,11 +128,30 @@ const carouselRolling = ({
 
   /** get elements */
   const c2Wrapper = document.getElementById(parentId);
+  if (!c2Wrapper) {
+    console.error(`Element with id ${parentId} not found`);
+    return;
+  }
+
+  // Check if c2Wrapper has width and height
+  const wrapperWidth = c2Wrapper.offsetWidth;
+  const wrapperHeight = c2Wrapper.offsetHeight;
+  if (!wrapperWidth || !wrapperHeight) {
+    console.warn(
+      `Warning: Element with id "${parentId}" does not have explicit width and/or height. Carousel may not render correctly.`
+    );
+  }
+
+  // Add required CSS to c2Wrapper
+  c2Wrapper.style.overflow = "hidden";
+  c2Wrapper.style.position = "relative";
+
   const cards = c2Wrapper.querySelectorAll(`.${cardClass}`);
   // Add transition CSS to all cards at init
+
   cards.forEach((card) => {
     card.style.transition =
-      "left 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1), width 0.4s, height 0.4s";
+      "left 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1), scale 0.4s, opacity 0.4s";
   });
 
   /** constants */
@@ -151,8 +175,7 @@ const carouselRolling = ({
     canvasWidth
   );
 
-  // console.log(positionsCenteredToCanvas);
-
+  /** draw function: used once initially, then on click */
   const draw = (selectedIndex) => {
     const cardsToLeft = selectedIndex;
     const cardsToRight = totalCards - selectedIndex - 1;
@@ -163,11 +186,15 @@ const carouselRolling = ({
       cardsToRight,
       true
     );
+
+    // console.log({ cardsToLeft, cardsToRight, selectedIndex, surroundingCards });
     drawCards(cards, surroundingCards);
   };
 
-  draw(Math.round(totalCards / 2));
+  /** Initial draw and event handlers */
+  draw(Math.round(totalCards / 2) - 1);
 
+  /** event listeners */
   cards.forEach((card, idx) => {
     card.onclick = (event) => {
       event.stopPropagation();
@@ -184,4 +211,6 @@ carouselRolling({
   parentId: "carousalRolling",
   cardHidePct: 50,
   cardClass: "card",
+  cardWidth: 450,
+  cardHeight: 550,
 });
