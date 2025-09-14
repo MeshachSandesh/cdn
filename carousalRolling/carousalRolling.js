@@ -1,4 +1,4 @@
-const carouselRolling = ({
+const rollingCarousel = ({
   parentId = "c2Wrapper",
   cardClass = "card",
   cardWidth = 500,
@@ -114,12 +114,13 @@ const carouselRolling = ({
         card.style.transform = `scale(${scale})`;
         card.style.scale = scale;
         card.style.zIndex = zindex;
-        // Opacity: selected card = 1, each left/right reduces by 0.2, min 0.2
+        /** opacity */
         const dist = Math.abs(idx - selectedIdx);
         let opacity = 1 - dist * 0.2;
         if (opacity < 0.2) opacity = 0.2;
-        card.style.opacity = opacity;
-        // card.textContent = `Center: ${startPos.toFixed(2)}, index: ${idx}`;
+        Array.from(card.children).forEach((child) => {
+          child.style.opacity = opacity;
+        });
       } else {
         card.style.display = "none";
       }
@@ -151,7 +152,14 @@ const carouselRolling = ({
 
   cards.forEach((card) => {
     card.style.transition =
-      "left 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1), scale 0.4s, opacity 0.4s";
+      "left 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1), scale 0.4s";
+    // "left 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1), scale 0.4s, opacity 0.4s";
+  });
+
+  cards.forEach((card) => {
+    Array.from(card.children).forEach((child) => {
+      child.style.transition = "opacity 0.4s cubic-bezier(0.4,0,0.2,1)";
+    });
   });
 
   /** constants */
@@ -207,10 +215,73 @@ const carouselRolling = ({
   }
 };
 
+/** for mobile */
+function isMobileDevice() {
+  return (
+    typeof window !== "undefined" &&
+    /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  );
+}
+const rollingCarouselMobile = ({ parentId, cardClass, aspectRatio }) => {
+  console.log("running mobile carousel");
+  const c2Wrapper = document.getElementById(parentId);
+  if (!c2Wrapper) {
+    console.error(`Element with id ${parentId} not found`);
+    return;
+  }
+
+  // Set flex styles for mobile
+  c2Wrapper.style.display = "flex";
+  c2Wrapper.style.flexDirection = "row";
+  c2Wrapper.style.maxWidth = "max-content";
+  c2Wrapper.style.overflowX = "scroll";
+  c2Wrapper.style.position = "relative";
+
+  // Get cards and set basic styles
+  const cards = c2Wrapper.querySelectorAll(`.${cardClass}`);
+  cards.forEach((card) => {
+    card.style.flex = "0 0 auto";
+    card.style.marginRight = "16px";
+    card.style.transition = "transform 0.3s, opacity 0.3s";
+    // if (aspectRatio) {
+    //   card.style.width = "180px";
+    //   card.style.height = `${180 / aspectRatio}px`;
+    // }
+  });
+
+  // Optionally, scroll to center card on load
+  const centerIdx = Math.floor(cards.length / 2);
+  if (cards[centerIdx]) {
+    cards[centerIdx].scrollIntoView({ inline: "center", behavior: "smooth" });
+  }
+};
+
+const carouselRolling = ({
+  parentId,
+  cardHidePct,
+  cardClass,
+  cardWidth,
+  cardHeight,
+  aspectRatio,
+}) => {
+  isMobileDevice()
+    ? rollingCarouselMobile({ parentId, cardClass, aspectRatio })
+    : rollingCarousel({
+        parentId,
+        cardHidePct,
+        cardClass,
+        cardWidth,
+        cardHeight,
+      });
+};
+
 carouselRolling({
   parentId: "carousalRolling",
   cardHidePct: 50,
-  cardClass: "card",
+  cardClass: "card-rolling",
   cardWidth: 450,
   cardHeight: 550,
+  aspectRatio: 800 / 976,
 });
