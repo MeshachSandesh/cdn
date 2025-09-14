@@ -1,0 +1,27 @@
+.strip_bg {
+  /* background-color: #fef8f5; */
+`  min-height: 100vh;
+  background-color: var(--bg-color);
+  --bg-color: #fef8f5;
+  --stripe-color: #fcf1ed;
+  --stripe-width: 20px;
+  --stripe-gap: 68px;
+  --stripe-angle: -45deg;
+
+  /* vertical repeating stripes */
+  background-image: repeating-linear-gradient(
+    var(--stripe-angle),
+    var(--stripe-color) 0 calc(var(--stripe-width)),
+    transparent calc(var(--stripe-width)) calc(var(--stripe-gap))
+  );
+  /* ensure it doesn't scroll weird on small screens */
+  background-attachment: fixed;
+}
+
+.image-7.blog-image {
+  mix-blend-mode: multiply;
+}
+
+.transparent-black {
+  mix-blend-mode: lighten;
+}
