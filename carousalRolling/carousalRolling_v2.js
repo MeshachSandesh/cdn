@@ -225,7 +225,7 @@ function isMobileDevice() {
   );
 }
 const rollingCarouselMobile = ({ parentId, cardClass, aspectRatio }) => {
-  console.log("running mobile carousel");
+  // console.log("running mobile carousel");
   const c2Wrapper = document.getElementById(parentId);
   if (!c2Wrapper) {
     console.error(`Element with id ${parentId} not found`);
@@ -252,10 +252,10 @@ const rollingCarouselMobile = ({ parentId, cardClass, aspectRatio }) => {
   });
 
   // Optionally, scroll to center card on load
-  const centerIdx = Math.floor(cards.length / 2);
-  if (cards[centerIdx]) {
-    cards[centerIdx].scrollIntoView({ inline: "center", behavior: "smooth" });
-  }
+  // const centerIdx = Math.floor(cards.length / 2);
+  // if (cards[centerIdx]) {
+  //   cards[centerIdx].scrollIntoView({ inline: "center", behavior: "smooth" });
+  // }
 };
 
 const carouselRolling = ({
