@@ -1,0 +1,53 @@
+.strip_bg {
+  /* background-color: #fef8f5; */
+`  min-height: 100vh;
+  background-color: var(--bg-color);
+  --bg-color: #fef8f5;
+  --stripe-color: #fcf1ed;
+  --stripe-width: 20px;
+  --stripe-gap: 68px;
+  --stripe-angle: -45deg;
+
+  /* vertical repeating stripes */
+  background-image: repeating-linear-gradient(
+    var(--stripe-angle),
+    var(--stripe-color) 0 calc(var(--stripe-width)),
+    transparent calc(var(--stripe-width)) calc(var(--stripe-gap))
+  );
+  /* ensure it doesn't scroll weird on small screens */
+  background-attachment: fixed;
+}
+
+.image-7.blog-image {
+  mix-blend-mode: multiply;
+}
+
+.transparent-black {
+  mix-blend-mode: lighten;
+}
+
+.w--current {
+  color: #D5212A;
+  border-bottom: 1px solid #D5212A;
+}
+
+.w--current div {
+  color: #D5212A;
+}
+
+.accordion {
+  border-bottom: none;
+}
+
+.accordion:last-child{
+  border-bottom: 1px solid #b7b7b7;
+}
+
+.accordion:hover:not(.active) {
+  /* background-color: rgb(250, 249, 249); */
+  color: #D5212A;
+}
+
+.accordion_trigger {
+  margin-left: 10px;
+}
