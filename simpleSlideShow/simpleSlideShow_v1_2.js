@@ -300,7 +300,7 @@ createSlideShow({
   stepPercent: 100,
   loop: true,
   autoScroll: true,
-  autoScrollDelay: 3000,
+  autoScrollDelay: 7000,
 });
 createSlideShow({
   wrapper: "#leg2slidewrapper",
