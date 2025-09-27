@@ -1,6 +1,17 @@
+.b_input::placeholder {
+  font-family: "YourFontName", sans-serif;
+  font-size: 16px;
+  font-style: italic; /* optional */
+  color: #888; /* optional */
+}
+li {
+  font-family: "YourFontName", sans-serif;
+  font-size: 16px;
+}
+
 .strip_bg {
   /* background-color: #fef8f5; */
-`  min-height: 100vh;
+  min-height: 100vh;
   background-color: var(--bg-color);
   --bg-color: #fef8f5;
   --stripe-color: #fcf1ed;
@@ -27,25 +38,25 @@
 }
 
 .w--current {
-  color: #D5212A;
-  border-bottom: 1px solid #D5212A;
+  color: #d5212a;
+  border-bottom: 1px solid #d5212a;
 }
 
 .w--current div {
-  color: #D5212A;
+  color: #d5212a;
 }
 
 .accordion {
   border-bottom: none;
 }
 
-.accordion:last-child{
+.accordion:last-child {
   border-bottom: 1px solid #b7b7b7;
 }
 
 .accordion:hover:not(.active) {
   /* background-color: rgb(250, 249, 249); */
-  color: #D5212A;
+  color: #d5212a;
 }
 
 .accordion_trigger {
