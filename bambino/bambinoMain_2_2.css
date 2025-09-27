@@ -37,12 +37,12 @@ li {
   mix-blend-mode: lighten;
 }
 
-.w--current {
+.section-9 .w--current {
   color: #d5212a;
   border-bottom: 1px solid #d5212a;
 }
 
-.w--current div {
+.section-9 .w--current div {
   color: #d5212a;
 }
 
