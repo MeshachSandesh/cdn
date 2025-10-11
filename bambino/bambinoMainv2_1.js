@@ -206,7 +206,7 @@ swapRotate({ listItems });
 const accordion = document.querySelectorAll(".accordion");
 
 accordion.forEach((item, index) => {
-  const header = item.querySelector(".accordion_title");
+  const header = item.querySelector(".accordion_trigger");
   const content = item.querySelector(".accordion_content");
 
   if (header) {
