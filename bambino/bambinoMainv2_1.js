@@ -209,21 +209,20 @@ accordion.forEach((item, index) => {
   const header = item.querySelector(".accordion_trigger");
   const content = item.querySelector(".accordion_content");
 
-  if (header) {
-    header.style.cursor = "pointer";
-  }
+  if (header) header.style.cursor = "pointer";
 
   // Set initial state
   if (content) {
-    content.style.overflow = "hidden";
-    content.style.transition = "max-height 0.3s ease-out";
+    content.style.transition = "opacity 0.3s ease-out";
 
     // Make first accordion visible by default
     if (index === 0) {
       item.classList.add("active");
-      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.display = "block";
+      content.style.opacity = "1";
     } else {
-      content.style.maxHeight = "0";
+      content.style.display = "none";
+      content.style.opacity = "0";
     }
   }
 
@@ -234,13 +233,34 @@ accordion.forEach((item, index) => {
       // Close accordion
       item.classList.remove("active");
       if (content) {
-        content.style.maxHeight = "0";
+        content.style.opacity = "0";
+        setTimeout(() => {
+          content.style.display = "none";
+        }, 300); // Wait for opacity transition to complete
       }
     } else {
-      // Open accordion
+      /** Hidding the section that hides the other accordions because
+       * it causes a nonsense jump */
+
+      // accordion.forEach((otherItem, otherIndex) => {
+      //   if (otherItem !== item) {
+      //     otherItem.classList.remove("active");
+      //     const otherContent = otherItem.querySelector(".accordion_content");
+      //     if (otherContent) {
+      //       otherContent.style.opacity = "0";
+      //       setTimeout(() => {
+      //         otherContent.style.display = "none";
+      //       }, 300);
+      //     }
+      //   }
+      // });
+
       item.classList.add("active");
       if (content) {
-        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.display = "block";
+        setTimeout(() => {
+          content.style.opacity = "1";
+        }, 10); // Small delay to ensure display:block takes effect
       }
     }
   });
