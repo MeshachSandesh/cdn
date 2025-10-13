@@ -315,4 +315,4 @@ const positionAcordianMenu = () => {
     behavior: "smooth",
   });
 };
-positionAcordianMenu();
+// positionAcordianMenu();
